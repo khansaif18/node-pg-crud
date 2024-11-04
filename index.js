@@ -1,6 +1,7 @@
 const express = require('express');
 const { connectDB } = require('./dbConnection');
 require('dotenv').config();
+const cors = require('cors')
 const productRouter = require('./routes/productsRoute');
 const categoryRouter = require('./routes/categoryRoute');
 
@@ -10,6 +11,9 @@ try { connectDB() } catch (err) { console.log(err.message) }
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+app.use(cors({
+    origin: '*'
+}))
 
 app.use('/api/v1/categories', categoryRouter)
 app.use('/api/v1/products', productRouter)
